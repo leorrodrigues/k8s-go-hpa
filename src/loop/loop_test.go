@@ -25,8 +25,7 @@ func TestLoop(t *testing.T) {
 	}
 
 	expected := "<b>Code.education Rocks!</b>"
-	actual := msg()
-
+	actual := recorder.Body.String()
 	if actual != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
 	}

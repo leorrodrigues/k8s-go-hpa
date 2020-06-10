@@ -6,16 +6,12 @@ import (
 	"net/http"
 )
 
-func msg() string {
-	return "<b>Code.education Rocks!</b>"
-}
-
 func loop(writer http.ResponseWriter, reqest *http.Request) {
 	x := 0.0001
 	for i := 0; i < 1000000000; i++ {
 		x += math.Sqrt(x)
 	}
-	fmt.Println(msg())
+	fmt.Fprintf(writer, "<b>Code.education Rocks!</b>")
 }
 
 func main() {
