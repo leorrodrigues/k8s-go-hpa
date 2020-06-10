@@ -1,0 +1,28 @@
+steps:
+  - id: 'Executando go unit test'
+    name: 'gcr.io/cloud-builders/go'
+    args: ['test', '-v', './src/loop']
+    env: ['PROJECT_ROOT=.']
+
+  - id: 'Executando go build'
+    name: 'gcr.io/cloud-builders/go'
+    args: ['build', '-o','./src/loop', './src/loop']
+    env: ['PROJECT_ROOT=.']
+
+  - id: "Gerando a tag da aplicação para DockerHub"
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--tag=leorrodrigues/go-hpa-loop']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker login --username=leorrodrigues --password=$$PASSWORD']
+    secretEnv: ['PASSWORD']
+  
+  - id: "Executando o push da imagem no DockerHub"
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'leorrodrigues/go-hpa-loop']
+  
+secrets:
+- kmsKeyName: projects/iniciando-ci/locations/global/keyRings/fullcycle/cryptoKeys/dockerhub-secret
+  secretEnv:
+    PASSWORD: 'CiQANp9r3Ynf1DDyb/RY0rCaYY+klJ+WRoqp/+hUFTYpe9KV1OASNQBo6N+GRHqdzDnWTbKYeIdIoQa0MqA7ddlvtjJqceqop4aEIP085R3Jv4BwR0yOiOWo4Pme'
