@@ -1,16 +1,20 @@
 package main
 
-import "fmt";
-import "math";
+import (
+	"fmt"
+	"math"
+	"net/http"
+)
 
-func loop() string {
+func loop(writer http.ResponseWriter, reqest *http.Request) {
 	x := 0.0001
-	for i:=0; i<1000000000; i++ {
+	for i := 0; i < 1000000000; i++ {
 		x += math.Sqrt(x)
 	}
-	return  "CodeEducation Rocks."
+	fmt.Fprintf(writer, "<b>Code.education Rocks!</b>")
 }
 
 func main() {
-	fmt.Println(loop())
+	http.HandleFunc("/", loop)
+	http.ListenAndServe(":8000", nil)
 }
