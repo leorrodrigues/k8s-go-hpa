@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: go-hpa-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: go-hpa
   ports:
