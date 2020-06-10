@@ -2,12 +2,12 @@ steps:
   - id: 'Executando go unit test'
     name: 'gcr.io/cloud-builders/go'
     args: ['test', '-v', './src/loop']
-    env: ['PROJECT_ROOT=.']
+    env: ['GOPATH=.']
 
   - id: 'Executando go build'
     name: 'gcr.io/cloud-builders/go'
     args: ['build', '-o','./src/loop', './src/loop']
-    env: ['PROJECT_ROOT=.']
+    env: ['GOPATH=.']
 
   - id: "Gerando a tag da aplicação para DockerHub"
     name: 'gcr.io/cloud-builders/docker'
