@@ -11,7 +11,7 @@ steps:
 
   - id: "Gerando a tag da aplicação para DockerHub"
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag=leorrodrigues/go-hpa-loop','.']
+    args: ['build', '--tag=leorrodrigues/go-hpa','.']
 
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
@@ -20,7 +20,7 @@ steps:
   
   - id: "Executando o push da imagem no DockerHub"
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'leorrodrigues/go-hpa-loop']
+    args: ['push', 'leorrodrigues/go-hpa']
   
 secrets:
 - kmsKeyName: projects/iniciando-ci/locations/global/keyRings/fullcycle/cryptoKeys/dockerhub-secret
