@@ -7,7 +7,7 @@ steps:
   - id: 'Executando go build'
     name: 'gcr.io/cloud-builders/go'
     args: ['build', '-o','./src/loop', './src/loop']
-    env: ['GOPATH=.']
+    env: ['GOPATH=.', 'CGO_ENABLED=0', 'GOOS=linux GOARCH=amd64']
 
   - id: "Gerando a tag da aplicação para DockerHub"
     name: 'gcr.io/cloud-builders/docker'
