@@ -11,7 +11,7 @@ steps:
 
   - id: "Gerando a tag da aplicação para DockerHub"
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag=leorrodrigues/go-hpa-loop']
+    args: ['build', '--tag=leorrodrigues/go-hpa-loop','.']
 
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
