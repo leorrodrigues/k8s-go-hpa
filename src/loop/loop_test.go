@@ -1,11 +1,33 @@
 package main
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
 
-func TestSum(t *testing.T) {
-	str := loop()
-	correct := "CodeEducation Rocks."
-	if str != correct {
-		t.Errorf("Loop return was incorrect, got: %v, want: %v.", str, correct)
+func TestLoop(t *testing.T) {
+	req, err := http.NewRequest("GET", "", nil)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	recorder := httptest.NewRecorder()
+
+	hf := http.HandlerFunc(loop)
+
+	hf.ServeHTTP(recorder, req)
+
+	if status := recorder.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	expected := "<b>Code.education Rocks!</b>"
+	actual := msg()
+
+	if actual != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
 	}
 }
