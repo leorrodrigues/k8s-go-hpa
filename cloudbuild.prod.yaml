@@ -30,6 +30,15 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA']
   
+  - id: "Adjusting deploy file - k8s"
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: '/bin/sh'
+    args: 
+      - '-c'
+      - |
+        seed 's#img-go-hpa#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA#g' k8s/deployment.yaml > k8s/deployment.prod.yaml;
+
+
 secrets:
 - kmsKeyName: projects/iniciando-ci/locations/global/keyRings/fullcycle/cryptoKeys/dockerhub-secret
   secretEnv:
