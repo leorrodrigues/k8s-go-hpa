@@ -15,7 +15,7 @@ steps:
 
   - id: "Gerando a tag da aplicação para o Registry"
     name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'leorrodrigues/go-hpa', 'grc.io/$PROJECT_ID/go-hpa:$SHORT_SHA']
+    args: ['tag', 'leorrodrigues/go-hpa', 'gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA']
 
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
@@ -28,7 +28,7 @@ steps:
 
   - id: "Executando o push da imagem no Registry"
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gpc.io/$PROJECT_ID/go-hpa:$SHORT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA']
   
 secrets:
 - kmsKeyName: projects/iniciando-ci/locations/global/keyRings/fullcycle/cryptoKeys/dockerhub-secret
