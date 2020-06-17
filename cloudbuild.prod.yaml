@@ -36,7 +36,7 @@ steps:
     args: 
       - '-c'
       - |
-        seed 's#img-go-hpa#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA#g' k8s/deployment.yaml > k8s/deployment.prod.yaml;
+        sed 's#img-go-hpa#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA#g' k8s/deployment.yaml > k8s/deployment.prod.yaml;
 
 
 secrets:
